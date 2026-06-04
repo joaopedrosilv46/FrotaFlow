@@ -19,6 +19,8 @@ body{
     background-color: var(--bg-grey-light);
 }
 
+
+
 .dark {
   --text-white: #e6e6e6;
   --text-dark: #ffffff;
@@ -91,6 +93,12 @@ header .login ul li  :hover {
 .logo{
     margin-left: 10px;
     margin-top: 15px;
+
+}
+
+.logo img{
+    width: 190px;
+    height: 54px;
 }
 
 .logo a{
