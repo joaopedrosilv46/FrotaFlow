@@ -82,7 +82,7 @@
     <main>
         <div class="header2">
             <div class="item-header2">
-                <p>Nova Ordem</p>
+                <p>Relatório (Veiculos)</p>
             </div>
             <div class="item-header2">
                 <div class="buttons">
@@ -106,67 +106,165 @@
             </div>
         </div>
 
-        <div class="cadastro-ordem">
-            <div id="item-ordem-1">
-                <div class="linha-1">
-                    <p>Numero da Ordem</p>
-                    <input type="text">
+        <div class="info-container">
+            <div class="periodo">
+                <p>Periodo:</p>
+                <input type="date" value="24/04/2026" >
+                <hr>
+                <input type="date" value="24/04/2026" >
+            </div> 
+            
+
+                <div class="item-placa">
+                    <label for="placas">Placa:</label>
+                    <select id="placas" name="placas">
+                        <option value="todas">Todas</option>
+                        <option value="abc1234">JKL-3456</option>
+                        <option value="xyz5678">GHI-9012</option>
+                    </select>
                 </div>
-                <div class="linha-1">
-                    <p>Data de Abertura</p>
-                    <input type="date">
+
+
+                <div class="item-placa">
+                    <label for="placas">Mecânicos:</label>
+                    <select id="placas" name="placas">
+                        <option value="todas">Todos</option>
+                        <option value="abc1234">Roberto</option>
+                        <option value="xyz5678">Fabio</option>
+                        <option value="xyz5678">Mario</option>
+                        <option value="xyz5678">Willian</option>
+                    </select>
                 </div>
-                <div class="linha-1">
-                    <p>Ônibus</p>
-                    <input list="onibuss" name="onibus" id="onibus">
-                    <datalist id="onibuss">
-                            <option value="Mercedes">
-                    </datalist>
+
+            <div class="filtro-relatorio" id="botao-filtrar">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                    &nbsp;Filtrar
+                </button>
+            </div>
+        </div>
+
+
+
+        <div class="status">
+            <div class="item-status" id="status-botao">
+                <div class="manutencao">
+                    <p>Em Manutenção: 5</p>
                 </div>
-                <div class="linha-1">
-                    <p>Modelo</p>
-                    <input type="text">
+
+                <div class="concluido">
+                    <p>Concluídos: 8</p>
                 </div>
-                <div class="linha-1">
-                    <p>Montadora</p>
-                    <input type="text">
+
+                <div class="aguardando">
+                    <p>Aguardando Peças: 2</p>
+                </div>
+
+                <div class="pendente">
+                    <p>Pendentes: 1</p>
+                </div>
+
+                <div class="exportar">
+                    <p>Exportar | <a class="link_pdf" href="arquivo.pdf" download="relatorio.pdf">PDF</a></p>
                 </div>
             </div>
-            <div id="item-ordem-2">
-                <div class="linha-2">
-                    <p>Mecânico Responsável</p>
-                    <input type="text">
+
+
+            <div class="item-status" id="status-grafico">
+                <div class="grafico_barra">
+                        <canvas id="grafico_barra"></canvas>
                 </div>
-                <div class="linha-2">
-                    <p>Status</p>
-                    <input list="statuss" name="status" id="status">
-                    <datalist id="statuss">
-                            <option value="Aguardando Aprovação">
-                            <option value="Aguardando Peças">
-                            <option value="Em Manutenção">
-                            <option value="Concluído">
-                    </datalist>
-                </div>
-            </div>
-            <div id="item-ordem-3">
-                <p>Problema Reportado</p>
-                <textarea name="" id=""></textarea>
-            </div>
-            <div id="item-ordem-4">
-                <p>Diagnostico Inicial</p>
-                <textarea name="" id=""></textarea>
-            </div>
-            <div id="item-ordem-5">
-                <div id="button-cadastrar">
-                    <a href="../index.html"><button>Cadastrar</button></a>
-                </div>
-                <div id="button-cancelar">
-                    <a href="../index.html"><button>Cancelar</button></a>
+
+                <div class="grafico_pizza">
+                    <canvas id="grafico_pizza"></canvas>
                 </div>
             </div>
         </div>
-    </main>  
-    <script src="/script/script.js"></script>  
 
+    </main>
+<script src="/script/script.js"></script>   
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+const canvasBar = document.getElementById('grafico_barra');
+
+new Chart(canvasBar, {
+    type: 'bar',
+    data: {
+        labels: ['Em Manutenção', 'Concluídos', 'Aguardando Peças', 'Pendentes'],
+        datasets: [{
+            label: 'Manutenções por Status',
+            data: [5, 8, 2, 1],
+            backgroundColor: ['#E8A320', '#27A69A', '#3A9BD5', '#ef5454']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                labels: {
+                    boxWidth: 0,
+                    boxHeight: 0,
+                    color: '#ffffff'
+                }
+            },
+            title: {
+                display: true,
+                text: 'Número de Manutenções por Status',
+                color: '#ffffff'
+            }
+        },
+        scales: {
+            x: {
+                ticks: {
+                    color: '#ffffff' 
+                },
+                grid: {
+                    color: '#444444'
+                }
+            },
+            y: {
+                ticks: {
+                    color: '#ffffff'
+                },
+                grid: {
+                    color: '#444444'
+                }
+            }
+        }
+    }
+});
+
+
+
+const canvasPie = document.getElementById('grafico_pizza');
+
+new Chart(canvasPie, {
+    type: 'pie',
+    data: {
+        labels: ['Em Manutenção', 'Concluídos', 'Aguardando Peças', 'Pendentes'],
+        datasets: [{
+            label: 'Manutenções por Status',
+            data: [5, 8, 2, 1],
+            backgroundColor: ['#E8A320', '#27A69A', '#3A9BD5', '#ef5454']
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'top',  
+                align: 'center',      
+                labels: {
+                    color: '#ffffff',
+                    boxWidth: 20,
+                }
+            }
+        }
+    }
+});
+
+</script>
 </body>
 </html>
